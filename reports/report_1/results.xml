@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites id="2026-07-12" name="report_1" tests="1" failures="0" skipped="0" flaky="0" time="0.000">
+	<testsuite id="0" name="ur_logic_test" package="test/scripts/logic" timestamp="2026-07-11T23:11:48" hostname="localhost" tests="1" failures="0" errors="0" skipped="0" flaky="0" time="0.062">
+		<testcase name="test__can_sb_give_me_a_heeeyaa" classname="ur_logic_test" time="0.022">
+		</testcase>
+	</testsuite>
+</testsuites>

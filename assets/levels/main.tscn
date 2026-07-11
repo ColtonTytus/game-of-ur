@@ -1,3 +1,16 @@
 [gd_scene format=3 uid="uid://ck1e7kkxok0qo"]
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_jpahb"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jpahb"]
+
 [node name="Main" type="Node3D" unique_id=570408329]
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=1900697602]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("PlaneMesh_jpahb")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1200200228]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=548496816]
+shape = SubResource("WorldBoundaryShape3D_jpahb")

@@ -4,6 +4,8 @@
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jpahb"]
 
+[sub_resource type="Environment" id="Environment_jpahb"]
+
 [node name="Main" type="Node3D" unique_id=570408329]
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=1900697602]
@@ -14,3 +16,6 @@ mesh = SubResource("PlaneMesh_jpahb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=548496816]
 shape = SubResource("WorldBoundaryShape3D_jpahb")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=926217203]
+environment = SubResource("Environment_jpahb")

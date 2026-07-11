@@ -11,6 +11,7 @@
   - https://royalur.net/solved
   - brief explanation by wayne schmidt: https://www.youtube.com/watch?v=5mFP3YUfOTo
   - irving finkel + tom scott playing the game: https://www.youtube.com/watch?v=WZskjLq040I
+  - info about the game: https://archive.org/details/thingiverse-4984966
 
 similar games:
 

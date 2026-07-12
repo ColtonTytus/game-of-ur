@@ -7,7 +7,6 @@ extends GdUnitTestSuite
 # TestSuite generated from
 const __source: String = 'res://scripts/logic/ur_logic.gd'
 
-
 func test__can_sb_give_me_a_heeeyaa() -> void:
 	# DEFINE.
 	var expected : String = "Heeyaa"
@@ -17,3 +16,14 @@ func test__can_sb_give_me_a_heeeyaa() -> void:
 	assert_str(actual) \
 		.append_failure_message("it went wrong") \
 		.is_equal(expected)
+
+########## NOTE: this is a template.
+#func test__can_sb_give_me_a_heeeyaa() -> void:
+	## DEFINE.
+	#var expected : String = "Heeyaa"
+	## EXECUTE.
+	#var actual : String = UrLogic.can_sb_give_me_a_heeeyaa()
+	## ASSERT.
+	#assert_str(actual) \
+		#.append_failure_message("it went wrong") \
+		#.is_equal(expected)

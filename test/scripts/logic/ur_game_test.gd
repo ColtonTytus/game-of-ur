@@ -7,6 +7,7 @@ extends GdUnitTestSuite
 # TestSuite generated from
 const __source: String = 'res://scripts/logic/ur_game.gd'
 
+########## NOTE: this is a template.
 func test__can_sb_give_me_a_heeeyaa() -> void:
 	# DEFINE.
 	var expected : String = "Heeyaa"

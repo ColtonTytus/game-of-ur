@@ -132,7 +132,54 @@ func _create_collection() -> void:
 	collection.add_level(fifth_level)
 	LVLS = collection
 
-func test_create_levels() -> void:
+# NOTE: next up.
+# - get_possible_draws(pips : int) -> LogicDraw. list all possible draws for a dice roll outcome.
+# - execute_draw(draw : LogicDraw) -> void. in a level execute draws. query piece positions as test.
+
+########## NOTE: this is a template.
+#func test_new_test() -> void:
+	## DEFINE.
+	#var expected_cell_nums : Array[int] = [5,9,20,20,10]
+	#var actual_cell_nums : Array[int] = []
+	## EXECUTE.
+	#_create_collection()
+	#var levels : Array[UrLogic.LogicLevel] = LVLS.get_levels()
+	#for level : UrLogic.LogicLevel in levels:
+		#var actual_cell_num = level.number_of_cells()
+		#actual_cell_nums.append(actual_cell_num)
+	## ASSERT.
+	#for i : int in len(expected_cell_nums):
+		#var expected_cell_num : int = expected_cell_nums[i]
+		#var actual_cell_num : int = actual_cell_nums[i]
+		#assert_int(actual_cell_num) \
+			#.append_failure_message('no. of cells does not match at level #' + str(actual_cell_num)) \
+			#.is_equal(expected_cell_num)
+
+func test_level_dimension() -> void:
+	# DEFINE.
+	var expected_dimensions : Array[Vector2i] = [
+		Vector2i(1, 5),
+		Vector2i(3, 3),
+		Vector2i(8, 3),
+		Vector2i(8, 3),
+		Vector2i(5, 3)
+	]
+	var actual_dimensions : Array[Vector2i] = []
+	# EXECUTE.
+	_create_collection()
+	var levels : Array[UrLogic.LogicLevel] = LVLS.get_levels()
+	for level : UrLogic.LogicLevel in levels:
+		var dimension : Vector2i = level.get_dimension()
+		actual_dimensions.append(dimension)
+	# ASSERT.
+	for i : int in len(expected_dimensions):
+		var actual_dimension : Vector2i = actual_dimensions[i]
+		var expected_dimension : Vector2i = expected_dimensions[i]
+		assert_vector(actual_dimension) \
+			.append_failure_message('dimension mismatch at level #' + str(i)) \
+			.is_equal(expected_dimension)
+
+func test_level_cell_num() -> void:
 	# DEFINE.
 	var expected_cell_nums : Array[int] = [5,9,20,20,10]
 	var actual_cell_nums : Array[int] = []
@@ -147,20 +194,5 @@ func test_create_levels() -> void:
 		var expected_cell_num : int = expected_cell_nums[i]
 		var actual_cell_num : int = actual_cell_nums[i]
 		assert_int(actual_cell_num) \
-			.append_failure_message('no. of cells does not match at level #' + str(actual_cell_num)) \
+			.append_failure_message('no. of cells does not match at level #' + str(i)) \
 			.is_equal(expected_cell_num)
-
-# NOTE: next up.
-# - get_possible_draws(pips : int) -> LogicDraw. list all possible draws for a dice roll outcome.
-# - execute_draw(draw : LogicDraw) -> void. in a level execute draws. query piece positions as test.
-
-########## NOTE: this is a template.
-#func test__can_sb_give_me_a_heeeyaa() -> void:
-	## DEFINE.
-	#var expected : String = "Heeyaa"
-	## EXECUTE.
-	#var actual : String = UrLogic.can_sb_give_me_a_heeeyaa()
-	## ASSERT.
-	#assert_str(actual) \
-		#.append_failure_message("it went wrong") \
-		#.is_equal(expected)

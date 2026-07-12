@@ -7,15 +7,73 @@ extends GdUnitTestSuite
 # TestSuite generated from
 const __source: String = 'res://scripts/logic/ur_logic.gd'
 
-func test__can_sb_give_me_a_heeeyaa() -> void:
+const NL : String = '\n'
+
+var LVLS : UrLogic.LogicCollection = null
+
+func _create_collection() -> void:
+	var collection : UrLogic.LogicCollection = UrLogic.LogicCollection.new()
+	var first_level : UrLogic.LogicLevel = UrLogic.LogicLevel.new()
+	first_level.define_board_cells(
+		'1' + NL +
+		'2' + NL +
+		'3' + NL +
+		'2' + NL +
+		'1'
+	)
+	first_level.define_cell_types(
+		{
+			1 : [UrLogic.LogicTile.TILE_TYPE.REGULAR],
+			2 : [UrLogic.LogicTile.TILE_TYPE.REPEAT],
+			3 : [
+				UrLogic.LogicTile.TILE_TYPE.REPEAT,
+				UrLogic.LogicTile.TILE_TYPE.SAFEZONE
+			],
+		}
+	)
+	first_level.define_paths(
+		['a0', 'a1', 'a2', 'a3', 'a4'],
+		['a4', 'a3', 'a2', 'a1', 'a0'],
+	)
+	var second_level : UrLogic.LogicLevel = UrLogic.LogicLevel.new()
+	second_level.define_board_cells(
+		'131' + NL +
+		'323' + NL +
+		'131'
+	)
+	second_level.define_cell_types(
+		{
+			1 : [UrLogic.LogicTile.TILE_TYPE.REGULAR],
+			2 : [UrLogic.LogicTile.TILE_TYPE.REPEAT],
+			3 : [UrLogic.LogicTile.TILE_TYPE.SAFEZONE],
+		}
+	)
+	second_level.define_paths(
+		['a0', 'a1', 'b1', 'b2', 'c2'],
+		['c0', 'b0', 'b1', 'c1', 'a2'],
+		['c2', 'c1', 'b1', 'a1', 'a0'],
+		['a2', 'b2', 'b1', 'b0', 'c0'],
+	)
+	collection.add_level(second_level)
+	LVLS = collection
+
+func test_create_levels() -> void:
 	# DEFINE.
-	var expected : String = "Heeyaa"
+	var expected_cells_lvl_0 : int = 5
+	var expected_cells_lvl_1 : int = 9
 	# EXECUTE.
-	var actual : String = UrLogic.can_sb_give_me_a_heeeyaa()
+	_create_collection()
+	var lvl_0 : UrLogic.LogicLevel = LVLS.get_level(0)
+	var num_of_cells_lvl_0 = lvl_0.number_of_cells()
+	var lvl_1 : UrLogic.LogicLevel = LVLS.get_level(1)
+	var num_of_cells_lvl_1 = lvl_1.number_of_cells()
 	# ASSERT.
-	assert_str(actual) \
-		.append_failure_message("it went wrong") \
-		.is_equal(expected)
+	assert_int(num_of_cells_lvl_0) \
+		.append_failure_message("number of cells does not match for level id (0)") \
+		.is_equal(expected_cells_lvl_0)
+	assert_int(num_of_cells_lvl_1) \
+		.append_failure_message("number of cells does not match for level id (1)") \
+		.is_equal(expected_cells_lvl_1)
 
 ########## NOTE: this is a template.
 #func test__can_sb_give_me_a_heeeyaa() -> void:

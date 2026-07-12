@@ -2,6 +2,78 @@ extends Node
 class_name  UrLogic
 
 #############
+# classes   #
+#############
+
+### The players playing the game.
+class LogicPlayer:
+	### The player's ID.
+	var id : int = 0
+	# The player's iconic color.
+	var color : Color = Color()
+
+### The tiles of each game.
+class LogicTile:
+	### Effects a tile can potentially have.
+	enum TILE_TYPE {REGULAR, REPEAT, SAFEZONE}
+	### A tile's ID.
+	var id : int = 0
+	### Each tile has its own effects for the piece that lands on it.
+	# NOTE some tiles have more than 1 effect, in the traditional game the
+	# center piece lets the player repeat a turn, but also acts as a safezone.
+	var types : Array[TILE_TYPE] = []
+	### The location each piece has within the board.
+	var grid_coords : Vector2i = Vector2i(0, 0)
+
+### The 4 start and end areas for red and blue.
+class LogicArea:
+	### Type of area is either start or end.
+	enum AREA_TYPE {START, END}
+	### The actual type of area.
+	var type : AREA_TYPE
+	### The player who stores pieces here.
+	var player : LogicPlayer
+	### Number of pieces contained in each area.
+	var num_of_pieces : int = 0 # NOTE: usually between 0 and 7.
+
+### An abstraction to unite tiles and areas.
+class LogicLocation:
+	enum LOCATION_TYPE {TILE, AREA}
+	var type : LOCATION_TYPE = LOCATION_TYPE.TILE
+
+### An constallation of tiles is called a board.
+class LogicBoard:
+	var tiles : Array[LogicTile] = []
+
+### Abstraction of a path of tiles as DAG (directed acyclic graph).
+# NOTE: A path is possibly branching off and merging back in.
+class LogicPath:
+	### The graph's edges.
+	var edges : Dictionary = {}
+	### Create a link between two tiles.
+	func link(from_id : int, to_id : int):
+		if !edges.has(from_id):
+			edges[from_id] = []
+		edges[from_id].append(to_id)
+	### Get the list of next tiles.
+	func next_tiles(tile_id: int):
+		return edges.get(tile_id, [])
+
+### Togehter with a path for each player it is called a level.
+class LogicLevel:
+	### All tiles in a level.
+	var board : LogicBoard
+	### All players in a level.
+	var players : Array[LogicPlayer] = []
+	### Each player's path over the board.
+	var paths : Array[LogicPath] = []
+
+### A collection of levels.
+class LogicCollection:
+	### All levels.
+	var board : Array[LogicLevel] = []
+
+#############
 # signals   #
 #############
 

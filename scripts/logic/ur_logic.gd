@@ -81,11 +81,11 @@ class LogicLevel:
 		temp_cells = cells
 		board = LogicBoard.new()
 		return
-	func define_cell_types(cell_types : Dictionary) -> void:
+	func define_cell_types(_cell_types : Dictionary) -> void:
 		return
-	func define_paths(paths : Array[String]) -> void:
+	func define_paths(_paths : Array[String]) -> void:
 		return
-	func define_paths_with_branches(paths_with_branches : Array[Array]) -> void:
+	func define_paths_with_branches(_paths_with_branches : Array[Array]) -> void:
 		return
 	func number_of_cells() -> int:
 		#return len(board.tiles) # TODO: implement later.

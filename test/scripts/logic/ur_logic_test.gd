@@ -63,7 +63,7 @@ func _create_collection() -> void:
 	var third_level : UrLogic.LogicLevel = UrLogic.LogicLevel.new()
 	third_level.define_board_cells(
 		'2111--21' + NL +
-		'11121111' + NL +
+		'11131111' + NL +
 		'2111--21'
 	)
 	third_level.define_cell_types(
@@ -86,7 +86,7 @@ func _create_collection() -> void:
 	var fourth_level : UrLogic.LogicLevel = UrLogic.LogicLevel.new()
 	fourth_level.define_board_cells(
 		'2111--21' + NL +
-		'11121111' + NL +
+		'11131111' + NL +
 		'2111--21'
 	)
 	fourth_level.define_cell_types(

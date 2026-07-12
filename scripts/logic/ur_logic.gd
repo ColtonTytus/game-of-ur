@@ -86,17 +86,22 @@ class LogicLevel:
 	func define_cell_types(_cell_types : Dictionary) -> void:
 		cell_types = _cell_types
 	func define_paths(_paths : Array[String]) -> void:
-		return
+		var paths_with_branches : Array[Array] = []
+		for s : String in _paths:
+			paths_with_branches.append([s])
+		define_paths_with_branches(paths_with_branches)
 	func define_paths_with_branches(_paths_with_branches : Array[Array]) -> void:
-		return
+		return # TODO: implement later.
 	func number_of_cells() -> int:
 		#return len(board.tiles) # TODO: implement later.
 		return temp_cells.replace('-', '').replace(Global.NL, '').length()
 	func get_dimension() -> Vector2i:
+		#return len(board.tiles) # TODO: implement later.
 		var length_first_line : int = temp_cells.get_slice(Global.NL, 0).length()
 		var num_of_linebreaks : int = temp_cells.split(Global.NL).size()
 		return Vector2i(length_first_line, num_of_linebreaks)
 	func get_cell_types(cell_coords : Vector2i) -> Array[LogicTile.TILE_TYPE]:
+		#return len(board.tiles) # TODO: implement later.
 		var cell_str : String = Global.get_char_at(cell_coords.x, cell_coords.y, temp_cells)
 		var types : Array = cell_types[int(cell_str)] # NOTE: left side is of type Array[LogicTile.TILE_TYPE].
 		return types

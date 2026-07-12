@@ -182,7 +182,7 @@ func test_level_dimension() -> void:
 func test_level_cell_num() -> void:
 	# DEFINE.
 	var expected_cell_nums : Array[int] = [5,9,20,20,10]
-	var actual_cell_nums : Array[int] = []
+	var actual_cell_nums   : Array[int] = []
 	# EXECUTE.
 	_create_collection()
 	var levels : Array[UrLogic.LogicLevel] = LVLS.get_levels()

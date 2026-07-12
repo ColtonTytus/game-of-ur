@@ -89,7 +89,11 @@ class LogicLevel:
 		return
 	func number_of_cells() -> int:
 		#return len(board.tiles) # TODO: implement later.
-		return temp_cells.replace('-', '').replace('\n', '').length()
+		return temp_cells.replace('-', '').replace(Global.NL, '').length()
+	func get_dimension() -> Vector2i:
+		var length_first_line : int = temp_cells.get_slice(Global.NL, 0).length()
+		var num_of_linebreaks : int = temp_cells.split(Global.NL).size()
+		return Vector2i(length_first_line, num_of_linebreaks)
 
 ### A collection of levels.
 class LogicCollection:

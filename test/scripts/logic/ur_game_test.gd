@@ -7,6 +7,9 @@ extends GdUnitTestSuite
 # TestSuite generated from
 const __source: String = 'res://scripts/logic/ur_game.gd'
 
+# NOTE: next up.
+# - board.visualize(scene : PackedScene) -> void. creates the 3d represenation of the board with a Node3D scene.
+
 ########## NOTE: this is a template.
 func test__can_sb_give_me_a_heeeyaa() -> void:
 	# DEFINE.

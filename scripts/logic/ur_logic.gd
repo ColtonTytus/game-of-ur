@@ -48,6 +48,11 @@ class LogicLocation:
 ### An constallation of tiles is called a board.
 class LogicBoard:
 	var tiles : Array[LogicTile] = []
+	func draw_piece(draw : LogicDraw) -> void:
+		var from  : LogicTile = draw.from
+		var to : LogicTile = draw.to
+		to.current_player = from.current_player
+		from.current_player = null
 
 ### Abstraction of a path of tiles as DAG (directed acyclic graph).
 # NOTE: A path is possibly branching off and merging back in.
@@ -71,11 +76,18 @@ class LogicLevel:
 	var players : Array[LogicPlayer] = []
 	### Each player's path over the board.
 	var paths : Array[LogicPath] = []
+	func number_of_cells() -> int:
+		return len(board.tiles)
 
 ### A collection of levels.
 class LogicCollection:
 	### All levels.
 	var board : Array[LogicLevel] = []
+
+### The player drawing a piece from one tile to another.
+class LogicDraw:
+	var from : LogicTile
+	var to : LogicTile
 
 #############
 # signals   #

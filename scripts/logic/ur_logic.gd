@@ -22,6 +22,8 @@ class LogicTile:
 	# NOTE some tiles have more than 1 effect, in the traditional game the
 	# center piece lets the player repeat a turn, but also acts as a safezone.
 	var types : Array[TILE_TYPE] = []
+	### A tile can contain one player's piece at a time or none.
+	var current_player : LogicPlayer = null
 	### The location each piece has within the board.
 	var grid_coords : Vector2i = Vector2i(0, 0)
 	### Each logic tile has an actual 3D representation.

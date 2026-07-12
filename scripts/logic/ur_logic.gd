@@ -70,19 +70,35 @@ class LogicPath:
 
 ### Togehter with a path for each player it is called a level.
 class LogicLevel:
+	var temp_cells : String = '' # TODO: remove later.
 	### All tiles in a level.
 	var board : LogicBoard
 	### All players in a level.
 	var players : Array[LogicPlayer] = []
 	### Each player's path over the board.
 	var paths : Array[LogicPath] = []
+	func define_board_cells(cells : String) -> void:
+		temp_cells = cells
+		board = LogicBoard.new()
+		return
+	func define_cell_types(cell_types : Dictionary) -> void:
+		return
+	func define_paths(paths : Array[String]) -> void:
+		return
+	func define_paths_with_branches(paths_with_branches : Array[Array]) -> void:
+		return
 	func number_of_cells() -> int:
-		return len(board.tiles)
+		#return len(board.tiles) # TODO: implement later.
+		return temp_cells.replace('-', '').replace('\n', '').length()
 
 ### A collection of levels.
 class LogicCollection:
 	### All levels.
-	var board : Array[LogicLevel] = []
+	var levels : Array[LogicLevel] = []
+	func add_level(level : LogicLevel) -> void:
+		levels.append(level)
+	func get_levels() -> Array[LogicLevel]:
+		return levels
 
 ### The player drawing a piece from one tile to another.
 class LogicDraw:

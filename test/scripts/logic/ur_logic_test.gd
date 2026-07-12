@@ -37,6 +37,7 @@ func _create_collection() -> void:
 			'a4,a3,a2,a1,a0'
 		],
 	)
+	collection.add_level(first_level)
 	var second_level : UrLogic.LogicLevel = UrLogic.LogicLevel.new()
 	second_level.define_board_cells(
 		'131' + NL +
@@ -116,7 +117,7 @@ func _create_collection() -> void:
 			1 : [UrLogic.LogicTile.TILE_TYPE.REGULAR],
 		}
 	)
-	fifth_level.define_paths_per_player(
+	fifth_level.define_paths_with_branches(
 		[
 			[
 				'a0,b0,c0,d0,d1,d2,e2',
@@ -137,7 +138,8 @@ func test_create_levels() -> void:
 	var actual_cell_nums : Array[int] = []
 	# EXECUTE.
 	_create_collection()
-	for level : UrLogic.LogicLevel in LVLS.get_levels():
+	var levels : Array[UrLogic.LogicLevel] = LVLS.get_levels()
+	for level : UrLogic.LogicLevel in levels:
 		var actual_cell_num = level.number_of_cells()
 		actual_cell_nums.append(actual_cell_num)
 	# ASSERT.

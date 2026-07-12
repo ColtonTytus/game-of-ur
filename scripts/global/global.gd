@@ -59,8 +59,13 @@ const NL : String = '\n'
 # publics   #
 #############
 
-#func read_a_value() -> String:
-#	return xxx
+static func get_char_at(x : int, y : int, multi_line_string : String) -> String:
+	var lines = multi_line_string.strip_edges().split(NL)
+	if y < 0 or y >= lines.size():
+		return ''
+	if x < 0 or x >= lines[y].length():
+		return ''
+	return lines[y][x]
 
 #############
 # functions #

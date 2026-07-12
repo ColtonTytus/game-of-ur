@@ -75,6 +75,8 @@ class LogicLevel:
 	var board : LogicBoard
 	### All players in a level.
 	var players : Array[LogicPlayer] = []
+	### All players in a level.
+	var cell_types : Dictionary = {}
 	### Each player's path over the board.
 	var paths : Array[LogicPath] = []
 	func define_board_cells(cells : String) -> void:
@@ -82,7 +84,7 @@ class LogicLevel:
 		board = LogicBoard.new()
 		return
 	func define_cell_types(_cell_types : Dictionary) -> void:
-		return
+		cell_types = _cell_types
 	func define_paths(_paths : Array[String]) -> void:
 		return
 	func define_paths_with_branches(_paths_with_branches : Array[Array]) -> void:
@@ -94,8 +96,10 @@ class LogicLevel:
 		var length_first_line : int = temp_cells.get_slice(Global.NL, 0).length()
 		var num_of_linebreaks : int = temp_cells.split(Global.NL).size()
 		return Vector2i(length_first_line, num_of_linebreaks)
-	func get_cell_types(cell_coords : Vector2i) -> Array:
-		return []
+	func get_cell_types(cell_coords : Vector2i) -> Array[LogicTile.TILE_TYPE]:
+		var cell_str : String = Global.get_char_at(cell_coords.x, cell_coords.y, temp_cells)
+		var types : Array = cell_types[int(cell_str)] # NOTE: left side is of type Array[LogicTile.TILE_TYPE].
+		return types
 
 ### A collection of levels.
 class LogicCollection:

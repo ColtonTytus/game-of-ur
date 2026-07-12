@@ -194,14 +194,13 @@ func test_get_cell_types() -> void:
 				'cell'  : Vector2i(1, 1),
 				'expected_types'  : [
 					UrLogic.LogicTile.TILE_TYPE.REPEAT,
-					UrLogic.LogicTile.TILE_TYPE.SAFEZONE,
 				]
 			},
 			{
 				'level' : levels[1],
 				'cell'  : Vector2i(2, 1),
 				'expected_types'  : [
-					UrLogic.LogicTile.TILE_TYPE.REPEAT,
+					UrLogic.LogicTile.TILE_TYPE.SAFEZONE,
 				]
 			},
 		]

@@ -24,6 +24,8 @@ class LogicTile:
 	var types : Array[TILE_TYPE] = []
 	### The location each piece has within the board.
 	var grid_coords : Vector2i = Vector2i(0, 0)
+	### Each logic tile has an actual 3D representation.
+	var representation : Node3D
 
 ### The 4 start and end areas for red and blue.
 class LogicArea:

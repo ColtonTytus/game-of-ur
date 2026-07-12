@@ -152,8 +152,76 @@ func _create_collection() -> void:
 		#var expected_cell_num : int = expected_cell_nums[i]
 		#var actual_cell_num : int = actual_cell_nums[i]
 		#assert_int(actual_cell_num) \
-			#.append_failure_message('no. of cells does not match at level #' + str(actual_cell_num)) \
+			#.append_failure_message('no. of cells does not match at level #' + str(i)) \
 			#.is_equal(expected_cell_num)
+
+func test_get_cell_types() -> void:
+	# DEFINE.
+	_create_collection()
+	var levels : Array[UrLogic.LogicLevel] = LVLS.get_levels()
+	var expected_data : Array[Dictionary] = [
+			{
+				'level' : levels[0],
+				'cell'  : Vector2i(0, 0),
+				'expected_types'  : [
+					UrLogic.LogicTile.TILE_TYPE.REGULAR,
+				]
+			},
+			{
+				'level' : levels[0],
+				'cell'  : Vector2i(0, 1),
+				'expected_types'  : [
+					UrLogic.LogicTile.TILE_TYPE.REPEAT,
+				]
+			},
+			{
+				'level' : levels[0],
+				'cell'  : Vector2i(0, 2),
+				'expected_types'  : [
+					UrLogic.LogicTile.TILE_TYPE.REPEAT,
+					UrLogic.LogicTile.TILE_TYPE.SAFEZONE,
+				]
+			},
+			{
+				'level' : levels[1],
+				'cell'  : Vector2i(2, 2),
+				'expected_types'  : [
+					UrLogic.LogicTile.TILE_TYPE.REGULAR,
+				]
+			},
+			{
+				'level' : levels[1],
+				'cell'  : Vector2i(1, 1),
+				'expected_types'  : [
+					UrLogic.LogicTile.TILE_TYPE.REPEAT,
+					UrLogic.LogicTile.TILE_TYPE.SAFEZONE,
+				]
+			},
+			{
+				'level' : levels[1],
+				'cell'  : Vector2i(2, 1),
+				'expected_types'  : [
+					UrLogic.LogicTile.TILE_TYPE.REPEAT,
+				]
+			},
+		]
+	var expected_type_arrs : Array[Array] = []
+	var actual_type_arrs : Array[Array] = []
+	# EXECUTE.
+	for data : Dictionary in expected_data:
+		var level : UrLogic.LogicLevel = data['level']
+		var cell_coords : Vector2i = data['cell']
+		var actual_type_arr = level.get_cell_types(cell_coords)
+		var expected_type_arr : Array = data['expected_types'] # NOTE: of type Array[UrLogic.LogicTile]
+		expected_type_arrs.append(expected_type_arr)
+		actual_type_arrs.append(actual_type_arr)
+	# ASSERT.
+	for i : int in len(expected_type_arrs):
+		var expected_type_arr : Array = expected_type_arrs[i] # NOTE: of type Array[UrLogic.LogicTile]
+		var actual_type_arr : Array = actual_type_arrs[i] # NOTE: of type Array[UrLogic.LogicTile]
+		assert_array(actual_type_arr) \
+			.append_failure_message('type array mismatch for test #' + str(i)) \
+			.is_equal(expected_type_arr)
 
 func test_level_dimension() -> void:
 	# DEFINE.

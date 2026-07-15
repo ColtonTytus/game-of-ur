@@ -15,13 +15,13 @@ class LogicPlayer:
 ### The tiles of each game.
 class LogicTile:
 	### Effects a tile can potentially have.
-	enum TILE_TYPE {REGULAR, REPEAT, SAFEZONE}
+	enum TileType {REGULAR, REPEAT, SAFEZONE}
 	### A tile's ID.
 	var id : int = 0
 	### Each tile has its own effects for the piece that lands on it.
 	# NOTE some tiles have more than 1 effect, in the traditional game the
 	# center piece lets the player repeat a turn, but also acts as a safezone.
-	var types : Array[TILE_TYPE] = []
+	var types : Array[TileType] = []
 	### A tile can contain one player's piece at a time or none.
 	var current_player : LogicPlayer = null
 	### The location each piece has within the board.
@@ -32,9 +32,9 @@ class LogicTile:
 ### The 4 start and end areas for red and blue.
 class LogicArea:
 	### Type of area is either start or end.
-	enum AREA_TYPE {START, END}
+	enum AreaType {START, END}
 	### The actual type of area.
-	var type : AREA_TYPE
+	var type : AreaType
 	### The player who stores pieces here.
 	var player : LogicPlayer
 	### Number of pieces contained in each area.
@@ -42,12 +42,13 @@ class LogicArea:
 
 ### An abstraction to unite tiles and areas.
 class LogicLocation:
-	enum LOCATION_TYPE {TILE, AREA}
-	var type : LOCATION_TYPE = LOCATION_TYPE.TILE
+	enum LocationType {TILE, AREA}
+	var type : LocationType = LocationType.TILE
 
 ### An constallation of tiles is called a board.
 class LogicBoard:
 	var tiles : Array[LogicTile] = []
+
 	func draw_piece(draw : LogicDraw) -> void:
 		var from  : LogicTile = draw.from
 		var to : LogicTile = draw.to
@@ -60,10 +61,12 @@ class LogicPath:
 	### The graph's edges.
 	var edges : Dictionary = {}
 	### Create a link between two tiles.
+
 	func link(from_id : int, to_id : int):
 		if !edges.has(from_id):
 			edges[from_id] = []
 		edges[from_id].append(to_id)
+
 	### Get the list of next tiles.
 	func next_tiles(tile_id: int):
 		return edges.get(tile_id, [])
@@ -79,39 +82,48 @@ class LogicLevel:
 	var cell_types : Dictionary = {}
 	### Each player's path over the board.
 	var paths : Array[LogicPath] = []
+
 	func define_board_cells(cells : String) -> void:
 		temp_cells = cells
 		board = LogicBoard.new()
 		return
+
 	func define_cell_types(_cell_types : Dictionary) -> void:
 		cell_types = _cell_types
+
 	func define_paths(_paths : Array[String]) -> void:
 		var paths_with_branches : Array[Array] = []
 		for s : String in _paths:
 			paths_with_branches.append([s])
 		define_paths_with_branches(paths_with_branches)
+
 	func define_paths_with_branches(_paths_with_branches : Array[Array]) -> void:
 		return # TODO: implement later.
+
 	func number_of_cells() -> int:
 		#return len(board.tiles) # TODO: implement later.
 		return temp_cells.replace('-', '').replace(Global.NL, '').length()
+
 	func get_dimension() -> Vector2i:
 		#return len(board.tiles) # TODO: implement later.
 		var length_first_line : int = temp_cells.get_slice(Global.NL, 0).length()
 		var num_of_linebreaks : int = temp_cells.split(Global.NL).size()
 		return Vector2i(length_first_line, num_of_linebreaks)
-	func get_cell_types(cell_coords : Vector2i) -> Array[LogicTile.TILE_TYPE]:
+
+	func get_cell_types(cell_coords : Vector2i) -> Array[LogicTile.TileType]:
 		#return len(board.tiles) # TODO: implement later.
 		var cell_str : String = Global.get_char_at(cell_coords.x, cell_coords.y, temp_cells)
-		var types : Array = cell_types[int(cell_str)] # NOTE: left side is of type Array[LogicTile.TILE_TYPE].
+		var types : Array = cell_types[int(cell_str)] # NOTE: left side is of type Array[LogicTile.TileType].
 		return types
 
 ### A collection of levels.
 class LogicCollection:
 	### All levels.
 	var levels : Array[LogicLevel] = []
+
 	func add_level(level : LogicLevel) -> void:
 		levels.append(level)
+
 	func get_levels() -> Array[LogicLevel]:
 		return levels
 

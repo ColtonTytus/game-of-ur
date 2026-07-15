@@ -23,11 +23,11 @@ func _create_collection() -> void:
 	)
 	first_level.define_cell_types(
 		{
-			1 : [UrLogic.LogicTile.TILE_TYPE.REGULAR],
-			2 : [UrLogic.LogicTile.TILE_TYPE.REPEAT],
+			1 : [UrLogic.LogicTile.TileType.REGULAR],
+			2 : [UrLogic.LogicTile.TileType.REPEAT],
 			3 : [
-				UrLogic.LogicTile.TILE_TYPE.REPEAT,
-				UrLogic.LogicTile.TILE_TYPE.SAFEZONE
+				UrLogic.LogicTile.TileType.REPEAT,
+				UrLogic.LogicTile.TileType.SAFEZONE
 			],
 		}
 	)
@@ -46,9 +46,9 @@ func _create_collection() -> void:
 	)
 	second_level.define_cell_types(
 		{
-			1 : [UrLogic.LogicTile.TILE_TYPE.REGULAR],
-			2 : [UrLogic.LogicTile.TILE_TYPE.REPEAT],
-			3 : [UrLogic.LogicTile.TILE_TYPE.SAFEZONE],
+			1 : [UrLogic.LogicTile.TileType.REGULAR],
+			2 : [UrLogic.LogicTile.TileType.REPEAT],
+			3 : [UrLogic.LogicTile.TileType.SAFEZONE],
 		}
 	)
 	second_level.define_paths(
@@ -68,11 +68,11 @@ func _create_collection() -> void:
 	)
 	third_level.define_cell_types(
 		{
-			1 : [UrLogic.LogicTile.TILE_TYPE.REGULAR],
-			2 : [UrLogic.LogicTile.TILE_TYPE.REPEAT],
+			1 : [UrLogic.LogicTile.TileType.REGULAR],
+			2 : [UrLogic.LogicTile.TileType.REPEAT],
 			3 : [
-				UrLogic.LogicTile.TILE_TYPE.REPEAT,
-				UrLogic.LogicTile.TILE_TYPE.SAFEZONE
+				UrLogic.LogicTile.TileType.REPEAT,
+				UrLogic.LogicTile.TileType.SAFEZONE
 			],
 		}
 	)
@@ -91,11 +91,11 @@ func _create_collection() -> void:
 	)
 	fourth_level.define_cell_types(
 		{
-			1 : [UrLogic.LogicTile.TILE_TYPE.REGULAR],
-			2 : [UrLogic.LogicTile.TILE_TYPE.REPEAT],
+			1 : [UrLogic.LogicTile.TileType.REGULAR],
+			2 : [UrLogic.LogicTile.TileType.REPEAT],
 			3 : [
-				UrLogic.LogicTile.TILE_TYPE.REPEAT,
-				UrLogic.LogicTile.TILE_TYPE.SAFEZONE
+				UrLogic.LogicTile.TileType.REPEAT,
+				UrLogic.LogicTile.TileType.SAFEZONE
 			],
 		}
 	)
@@ -114,7 +114,7 @@ func _create_collection() -> void:
 	)
 	fifth_level.define_cell_types(
 		{
-			1 : [UrLogic.LogicTile.TILE_TYPE.REGULAR],
+			1 : [UrLogic.LogicTile.TileType.REGULAR],
 		}
 	)
 	fifth_level.define_paths_with_branches(
@@ -164,43 +164,43 @@ func test_get_cell_types() -> void:
 				'level' : levels[0],
 				'cell'  : Vector2i(0, 0),
 				'expected_types'  : [
-					UrLogic.LogicTile.TILE_TYPE.REGULAR,
+					UrLogic.LogicTile.TileType.REGULAR,
 				]
 			},
 			{
 				'level' : levels[0],
 				'cell'  : Vector2i(0, 1),
 				'expected_types'  : [
-					UrLogic.LogicTile.TILE_TYPE.REPEAT,
+					UrLogic.LogicTile.TileType.REPEAT,
 				]
 			},
 			{
 				'level' : levels[0],
 				'cell'  : Vector2i(0, 2),
 				'expected_types'  : [
-					UrLogic.LogicTile.TILE_TYPE.REPEAT,
-					UrLogic.LogicTile.TILE_TYPE.SAFEZONE,
+					UrLogic.LogicTile.TileType.REPEAT,
+					UrLogic.LogicTile.TileType.SAFEZONE,
 				]
 			},
 			{
 				'level' : levels[1],
 				'cell'  : Vector2i(2, 2),
 				'expected_types'  : [
-					UrLogic.LogicTile.TILE_TYPE.REGULAR,
+					UrLogic.LogicTile.TileType.REGULAR,
 				]
 			},
 			{
 				'level' : levels[1],
 				'cell'  : Vector2i(1, 1),
 				'expected_types'  : [
-					UrLogic.LogicTile.TILE_TYPE.REPEAT,
+					UrLogic.LogicTile.TileType.REPEAT,
 				]
 			},
 			{
 				'level' : levels[1],
 				'cell'  : Vector2i(2, 1),
 				'expected_types'  : [
-					UrLogic.LogicTile.TILE_TYPE.SAFEZONE,
+					UrLogic.LogicTile.TileType.SAFEZONE,
 				]
 			},
 		]

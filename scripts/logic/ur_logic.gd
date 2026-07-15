@@ -55,21 +55,53 @@ class LogicBoard:
 		to.current_player = from.current_player
 		from.current_player = null
 
-### Abstraction of a path of tiles as DAG (directed acyclic graph).
+### Abstraction of a path of nodes (with location id) as DAG (directed acyclic graph).
 # NOTE: A path is possibly branching off and merging back in.
 class LogicPath:
-	### The graph's edges.
-	var edges : Dictionary = {}
-	### Create a link between two tiles.
+	### [node id]
+	var start_node: int
+	### [node id], ascending order
+	var _nodes: PackedInt64Array = []
+	### {node id : location id}
+	var _location_id: Dictionary[int, int] = {}
+	### {node id : [node id]}
+	var _edges: Dictionary[int, PackedInt64Array] = {}
 
-	func link(from_id : int, to_id : int):
-		if !edges.has(from_id):
-			edges[from_id] = []
-		edges[from_id].append(to_id)
+	### Duplicate; read-only.
+	func get_node_ids() -> PackedInt64Array:
+		return _nodes.duplicate()
 
-	### Get the list of next tiles.
-	func next_tiles(tile_id: int):
-		return edges.get(tile_id, [])
+	### Returns `-1` on invalid `p_node_id`.
+	func get_node_location_id(p_node_id: int) -> int:
+		return _location_id.get(p_node_id, -1)
+
+	### Returns `[]` on invalid `p_node_id`.
+	func get_node_edges(p_node_id: int) -> PackedInt64Array:
+		return _edges.get(p_node_id, [])
+
+	### Returns node id.
+	func add_node(p_location_id: int, p_edges: PackedInt64Array = [], p_start_node: bool = false) -> int:
+		for edge: int in p_edges:
+			assert(edge in _nodes)
+
+		var id: int = 0
+		if _nodes.size():
+			# should only happen if function is called INT64_MAX + 1 times
+			assert(_nodes[-1] != INT64_MAX)
+			id = _nodes[-1] + 1
+		_nodes.append(id)
+		_location_id[id] = p_location_id
+		_edges[id] = p_edges
+		if p_start_node:
+			start_node = id
+
+		return id
+
+	func add_edge(p_from_node: int, p_to_node: int) -> void:
+		assert(p_from_node in _nodes)
+		assert(p_to_node in _nodes)
+		assert(not p_to_node in get_node_edges(p_from_node))
+		_edges[p_from_node].append(p_to_node)
 
 ### Togehter with a path for each player it is called a level.
 class LogicLevel:

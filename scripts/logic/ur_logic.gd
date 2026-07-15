@@ -12,12 +12,15 @@ class LogicPlayer:
 	# The player's iconic color.
 	var color : Color = Color()
 
+### An abstraction to unite tiles and areas.
+@abstract class LogicLocation:
+	### A location's ID.
+	var id : int
+
 ### The tiles of each game.
-class LogicTile:
+class LogicTile extends LogicLocation:
 	### Effects a tile can potentially have.
 	enum TileType {REGULAR, REPEAT, SAFEZONE}
-	### A tile's ID.
-	var id : int = 0
 	### Each tile has its own effects for the piece that lands on it.
 	# NOTE some tiles have more than 1 effect, in the traditional game the
 	# center piece lets the player repeat a turn, but also acts as a safezone.
@@ -29,8 +32,13 @@ class LogicTile:
 	### Each logic tile has an actual 3D representation.
 	var representation : Node3D
 
+	func _init(p_id: int, p_types: Array[TileType], p_grid_coords: Vector2i) -> void:
+		id = p_id
+		types = p_types
+		grid_coords = p_grid_coords
+
 ### The 4 start and end areas for red and blue.
-class LogicArea:
+class LogicArea extends LogicLocation:
 	### Type of area is either start or end.
 	enum AreaType {START, END}
 	### The actual type of area.
@@ -40,20 +48,33 @@ class LogicArea:
 	### Number of pieces contained in each area.
 	var num_of_pieces : int = 0 # NOTE: usually between 0 and 7.
 
-### An abstraction to unite tiles and areas.
-class LogicLocation:
-	enum LocationType {TILE, AREA}
-	var type : LocationType = LocationType.TILE
+	func _init(p_id: int, p_type: AreaType, p_player: LogicPlayer) -> void:
+		id = p_id
+		type = p_type
+		player = p_player
 
 ### An constallation of tiles is called a board.
 class LogicBoard:
-	var tiles : Array[LogicTile] = []
+	var locations : Array[LogicLocation] = []
 
-	func draw_piece(draw : LogicDraw) -> void:
-		var from  : LogicTile = draw.from
-		var to : LogicTile = draw.to
-		to.current_player = from.current_player
-		from.current_player = null
+	func get_rect() -> Rect2i:
+		var start := Vector2i(INT32_MAX, INT32_MAX)
+		var end := Vector2i(INT32_MIN, INT32_MIN)
+
+		for location: LogicLocation in locations:
+			if location is LogicTile:
+				start = start.min(location.grid_coords)
+				end = end.max(location.grid_coords + Vector2i(1, 1))
+
+		return Rect2i(start, end - start)
+
+	func get_location_from_id(p_location_id: int) -> LogicLocation:
+		var index: int = locations.find_custom(
+			func (e: LogicLocation) -> bool:
+				return e.id == p_location_id
+		)
+		assert(index != -1)
+		return locations[index]
 
 ### Abstraction of a path of nodes (with location id) as DAG (directed acyclic graph).
 # NOTE: A path is possibly branching off and merging back in.
